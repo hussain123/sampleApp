@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hussain123/sampleApp#readme",
   "dependencies": {
+    "chalk": "^4.0.0",
     "express": "^4.17.1"
   }
 }
