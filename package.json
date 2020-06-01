@@ -18,6 +18,14 @@
   "homepage": "https://github.com/hussain123/sampleApp#readme",
   "dependencies": {
     "chalk": "^4.0.0",
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "debug": "^2.6.9",
+    "express": "^4.17.1",
+    "install": "^0.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
   }
 }
