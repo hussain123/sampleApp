@@ -3,61 +3,32 @@ const chalk = require('chalk');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
+const sql = require('mssql');
+
+const employeeRoutes = require('./routes/Employee');
 
 const app = express();
+const port = process.env.PORT || 3000;
+
+const config = {
+  user: 'hussain',
+  password: 'Karachi786&*^',
+  server: 'sampleserver256.database.windows.net',
+  database: 'SampleDatabase',
+  options: {
+    encrpt: true,
+  },
+};
+sql.connect(config).catch((err) => debug(err));
+app.use(morgan('combined'));
 app.use(cors());
-app.get('/', (req, res) => {
-  res.send({
-    data: [
-      {
-        id: 1, first_name: 'Jesse', last_name: 'Simmons', date: '2016-10-15 13:43:27', gender: 'Male',
-      },
-      {
-        id: 2, first_name: 'John', last_name: 'Jacobs', date: '2016-12-15 06:00:53', gender: 'Male',
-      },
-      {
-        id: 3, first_name: 'Tina', last_name: 'Gilbert', date: '2016-04-26 06:26:28', gender: 'Female',
-      },
-      {
-        id: 4, first_name: 'Clarence', last_name: 'Flores', date: '2016-04-10 10:28:46', gender: 'Male',
-      },
-      {
-        id: 5, first_name: 'Anne', last_name: 'Lee', date: '2016-12-06 14:38:38', gender: 'Female',
-      },
-    ],
-    columns: [
-      {
-        field: 'id',
-        label: 'ID',
-        width: '40',
-        numeric: true,
-      },
-      {
-        field: 'first_name',
-        label: 'First Name',
-      },
-      {
-        field: 'last_name',
-        label: 'Last Name',
-      },
-      {
-        field: 'date',
-        label: 'Date',
-        centered: true,
-      },
-      {
-        field: 'gender',
-        label: 'Gender',
-      },
-    ],
-    isBordered: false,
-  });
-});
+app.use('/', employeeRoutes);
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
-app.listen(3000, () => {
-  // eslint-disable-next-line no-console
-  console.log(`lisitening to port ${chalk.green('3000')}`);
-  debug('listen to port');
+
+
+app.listen(port, () => {
+  debug(`Listening to port ${chalk.red(port)}`);
 });
